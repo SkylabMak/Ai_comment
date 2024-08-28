@@ -1,0 +1,27 @@
+--1(node command)--
+#Install dependencies
+npm install
+
+#run Project
+## run web
+npm run dev
+## run web and auto open
+npm run dev -- --open
+
+--1--
+--2(git command)--
+#seq for push files to github
+git add -A
+git commit -m "message"
+git push origin <branchName>
+
+#pull files from github
+git pull origin <branchName>
+
+#branch
+##Create a new branch.
+git branch <branch-name>
+##Create and switch to a new branch.
+git checkout -b <branch-name>
+##switch to a new branch.
+git checkout <branch-name>

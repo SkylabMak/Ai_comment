@@ -26,9 +26,12 @@
 	</h2>
 
 	<Counter />
+	<h1 class="text-3xl font-bold underline">
+		Hello world!
+	  </h1>
 </section>
 
-<style>
+<style lang="postcss">
 	section {
 		display: flex;
 		flex-direction: column;
