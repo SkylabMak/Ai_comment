@@ -13,7 +13,7 @@ export const GET: RequestHandler = async () => {
 
 export const POST: RequestHandler = async ({ request }) => {
   const body = await request.json();
-  console.log(body + " from post method")
+  console.log(body.someKey + " : from post method in backend api")
   const companyCollection = db.collection('company');
   //join
   const results = await companyCollection.aggregate([
