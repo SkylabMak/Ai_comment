@@ -375,5 +375,6 @@ export const GET: RequestHandler = async ({ params }) => {
             'Content-Type': 'application/json'
         }
     });
+    
 };
 
