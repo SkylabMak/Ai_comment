@@ -1,0 +1,8 @@
+<script lang="ts">
+	import type { PageData } from './$types';
+	
+	export let data: PageData;
+</script>
+
+<h1>test</h1>
+<div>{@html data.ckey}</div>

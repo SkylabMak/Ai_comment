@@ -25,3 +25,17 @@ interface Alldata {
     CKey: string;
     products: ProductConnection[];
 }
+
+interface googleInfo{
+    Google_ID: string;
+    Email: string;
+    name: string
+}
+type Token = {
+    access_token: string;
+    id_token?: string; // Optional because it might not always be present
+    refresh_token?: string;
+    scope?: string;
+    token_type?: string;
+    expiry_date?: number;
+  };

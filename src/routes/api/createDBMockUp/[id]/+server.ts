@@ -352,13 +352,13 @@ export const GET: RequestHandler = async ({ params }) => {
     // console.log(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@clusterai.944ar.mongodb.net/?retryWrites=true&w=majority&appName=${process.env.atlas_DB_NAMEMONGO_CLUSTER}}`)
     await testConnection()
     if (id) {
-        console.log("run")
-        const companyCollection = db.collection('company');
-        // await companyCollection.createIndex({ CKey : 2 }, { unique: true });
-        const result1 = await companyCollection.insertMany([
-            comData1, comData2
-        ])
-        console.log(result1) 
+        // console.log("run")
+        // const companyCollection = db.collection('company');
+        // // await companyCollection.createIndex({ CKey : 2 }, { unique: true });
+        // const result1 = await companyCollection.insertMany([
+        //     comData1, comData2
+        // ])
+        // console.log(result1) 
 
         // Ensure that a compound index exists
 
