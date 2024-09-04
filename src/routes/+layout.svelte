@@ -26,10 +26,4 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
 </style>
