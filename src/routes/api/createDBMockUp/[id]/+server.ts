@@ -11,12 +11,14 @@ const comData1: CompanyConnection = {
     Email: "contact1@company.com",
     CName: "CompanyName01",
     CKey: "CompanyKey123",
+    Emotions:[true,true,false,false,true,false]
 };
 const comData2: CompanyConnection = {
     Google_ID: "google-987",
     Email: "contact2@company.com",
     CName: "CompanyName02",
     CKey: "CompanyKey5196519",
+    Emotions:[true,true,false,false,false,false]
 };
 
 const commentsDate1: ProductConnection[] = [
@@ -351,12 +353,12 @@ export const GET: RequestHandler = async ({ params }) => {
     await testConnection()
     if (id) {
         console.log("run")
-        // const companyCollection = db.collection('company');
+        const companyCollection = db.collection('company');
         // await companyCollection.createIndex({ CKey : 2 }, { unique: true });
-        // const result1 = await companyCollection.insertMany([
-        //     comData1, comData2
-        // ])
-        // console.log(result1) 
+        const result1 = await companyCollection.insertMany([
+            comData1, comData2
+        ])
+        console.log(result1) 
 
         // Ensure that a compound index exists
 

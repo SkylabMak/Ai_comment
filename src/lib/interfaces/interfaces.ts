@@ -15,6 +15,7 @@ interface CompanyConnection {
     Email: string;
     CName: string;
     CKey: string;
+    Emotions:boolean[]
 }
 
 interface Alldata {
