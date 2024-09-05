@@ -7,6 +7,11 @@ export const POST: RequestHandler = async ({ request }) => {
     const companyCollection = db.collection('company');
     const results = await companyCollection.aggregate([
         {
+            $match: {
+                CKey: body.CKey
+            }
+        },
+        {
             $lookup: {
                 from: "product",           
                 localField: "CKey",        
@@ -16,8 +21,12 @@ export const POST: RequestHandler = async ({ request }) => {
         },
         {
             $project: {
+                _id: 0,               
                 Emotions: 1,
-                products: 1                
+                "products.CKey": 1,          
+                "products.Product_ID": 1,    
+                "products.Name_product": 1,
+                "products.Comment": 1                  
             }
         } 
     ]).toArray(); 
