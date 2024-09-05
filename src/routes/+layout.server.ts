@@ -13,7 +13,7 @@ export const load: LayoutServerLoad = async ({ fetch,cookies ,url}) => {
 		const loginURL = (await (await fetch('/api/login/getURL')).json()).url;
 		throw redirect(303, loginURL);
 	}
-    console.log("CKeyCookie in layout is "+CKeyCookie )
+    // console.log("CKeyCookie in layout is "+CKeyCookie )
 
     //get data
     const response = await fetch('/api/getDashboard', {
@@ -28,8 +28,8 @@ export const load: LayoutServerLoad = async ({ fetch,cookies ,url}) => {
     const data = (await response.json()) as Alldata
     // console.log(data)
     data.CKey = CKeyCookie as string
-    alldataStore.set(data);
+    // alldataStore.set(data);
     return {
-        data: data
+        data: data //pass data to child (copy to go out)
     };
 };

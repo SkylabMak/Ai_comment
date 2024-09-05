@@ -1,17 +1,15 @@
+import { alldataStore } from '$lib/store/stores';
 import type { PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
-// export const load: PageServerLoad = async ({ cookies,fetch, url,parent }) => {
-// 	const { data } = await parent();
-// 	let CKey = data.CKey
-// 	console.log("Ckey in page is "+CKey)
-// 	// if (!CKeyCookie) {
-// 	// 	console.log("redilect in page")
-// 	// 	const loginURL = (await (await fetch('/api/login/getURL')).json()).url;
-// 	// 	redirect(303, loginURL);
-// 	// }
-// 	// console.log("data in page "+alldata)
-// 	return {
-// 		data: data
-// 	};
-// };
+export const load: PageServerLoad = async ({ parent }) => {
+	const { data } = await parent(); // get data from layout server (from parent ex. +layout.server.ts)
+	let CKey = data.CKey //decapsulation
+	console.log("Ckey in server page with pass data is "+CKey)
+	alldataStore.subscribe(value => { // run when alldataStore has changed
+		console.log("print from +page.server.ts : all data in change => "+value?.CKey)
+	})
+	return {
+		// data: data // no need to pass data to any child
+	};
+};
