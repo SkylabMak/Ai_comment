@@ -31,7 +31,7 @@ export const POST: RequestHandler = async ({ request }) => {
         } 
     ]).toArray(); 
 
-    return new Response(JSON.stringify(results),{
+    return new Response(JSON.stringify(results[0]),{
         status: 200,
         headers: {
         'Content-Type': 'application/json'
