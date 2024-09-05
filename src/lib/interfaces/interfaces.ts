@@ -15,10 +15,10 @@ interface CompanyConnection {
     Email: string;
     CName: string;
     CKey: string;
-    Emotions:boolean[]
+    Emotions: boolean[]
 }
 
-interface Alldata {
+interface AlldataConnection {
     Google_ID: string;
     Email: string;
     CName: string;
@@ -26,7 +26,33 @@ interface Alldata {
     products: ProductConnection[];
 }
 
-interface googleInfo{
+interface Comment {
+    comment_ID: string;
+    Text: string;
+    Time: string;
+    Emotion: string;
+}
+
+interface Product {
+    _id: string;
+    Product_ID: string;
+    CKey: string;
+    Name_product: string;
+    Comment: Comment[];
+}
+
+
+interface Alldata {
+    _id: string;
+    CKey : string;
+    Emotions: boolean[];
+    products: Product[];
+}
+
+
+
+
+interface googleInfo {
     Google_ID: string;
     Email: string;
     name: string
@@ -38,4 +64,4 @@ type Token = {
     scope?: string;
     token_type?: string;
     expiry_date?: number;
-  };
+};

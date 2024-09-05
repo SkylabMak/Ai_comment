@@ -12,10 +12,10 @@ export const load: PageServerLoad = async ({ params, url, fetch,cookies }) => {
 			code: code
 		})
 	});
-	console.log("fetch done")
+	// console.log("fetch done")
 	// responseDB.json()
 	let ckeyJson = await responseDB.json()
-	console.log(ckeyJson)
+	// console.log(ckeyJson)
 	let ckey = ckeyJson.CKey
 	cookies.set('CKey', ckey, {
 		path: '/', 
