@@ -9,5 +9,5 @@
 	});
 </script>
 
-<h1>test</h1>
+<h1>this text should not be displayed for a long time</h1>
 <div>{@html data.ckey}</div>

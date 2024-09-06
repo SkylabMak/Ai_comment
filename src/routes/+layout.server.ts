@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
+import { alldataStore } from '$lib/store/stores';
 export const load: LayoutServerLoad = async ({ fetch,cookies ,url}) => {
     //get cookie
     const CKeyCookie = cookies.get('CKey');
@@ -7,10 +8,11 @@ export const load: LayoutServerLoad = async ({ fetch,cookies ,url}) => {
 	console.log("path is "+currentPath)
     //check exeption to redirect
     if (!CKeyCookie && url.pathname  !== "/callback"&& url.pathname  !== "/favicon.ico") {
-        console.log("redilect in layout")
+        console.log("redilect for login in layout")
 		const loginURL = (await (await fetch('/api/login/getURL')).json()).url;
 		throw redirect(303, loginURL);
 	}
+    // console.log("-------------------- not redirect ----------------------" )
     // console.log("CKeyCookie in layout is "+CKeyCookie )
 
     //get data
@@ -24,8 +26,11 @@ export const load: LayoutServerLoad = async ({ fetch,cookies ,url}) => {
         })
     });
     const data = (await response.json()) as Alldata
+    // console.log("-------------------- setting data ----------------------" )
     // console.log(data)
     data.CKey = CKeyCookie as string
+    // console.log("-------------------- setting CKey in data ----------------------" )
+    // console.log(data)
     // alldataStore.set(data);
     return {
         data: data //pass data to child (copy to go out)

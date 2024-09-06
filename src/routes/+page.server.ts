@@ -9,7 +9,8 @@ export const load: PageServerLoad = async ({ parent }) => {
 	alldataStore.subscribe(value => { // run when alldataStore has changed
 		console.log("print from +page.server.ts : all data in change => "+value?.CKey)
 	})
+	// alldataStore.set(data)
 	return {
-		// data: data // no need to pass data to any child
+		data: data 
 	};
 };
