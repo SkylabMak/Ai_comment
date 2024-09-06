@@ -7,10 +7,10 @@ let alldata1: Alldata | null = null; // Declare variable with null
 
 alldataStore.subscribe(value => {
     alldata1 = value;
-    console.log("data changed in component");
+    // console.log("data changed in component");
 });
 
-console.log("first data in component " + alldata1);
+// console.log("first data in component " + alldata1);
 </script>
 
 <div class="w-full h-full flex flex-col items-center">

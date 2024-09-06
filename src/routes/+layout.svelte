@@ -12,7 +12,7 @@ let count = 1
 let layoutData: Alldata | null = null;
 alldataStore.subscribe(value => { //subscribe for run this function when "alldataStore" changes.
     layoutData = value
-    console.log("data changed in layout " + count + " time")
+//     console.log("data changed in layout " + count + " time")
 })
 alldataStore.set(data.data) //set data to main global store
 
