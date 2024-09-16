@@ -26,6 +26,13 @@ interface AlldataConnection {
     products: ProductConnection[];
 }
 
+interface AlldataComment {
+    Comment_ID: string;
+    Text: string;
+    Time: string;
+    Emotion: string;
+}
+
 interface Comment {
     comment_ID: string;
     Text: string;
@@ -41,7 +48,6 @@ interface Product {
     Comment: Comment[];
 }
 
-
 interface Alldata {
     _id: string;
     CKey : string;
@@ -49,14 +55,12 @@ interface Alldata {
     products: Product[];
 }
 
-
-
-
 interface googleInfo {
     Google_ID: string;
     Email: string;
     name: string
 }
+
 type Token = {
     access_token: string;
     id_token?: string; // Optional because it might not always be present
