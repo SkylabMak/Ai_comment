@@ -26,13 +26,10 @@ export const POST: RequestHandler = async ({ request }) => {
 
         // ตรวจสอบว่ามีเอกสารที่ถูกอัปเดตหรือไม่
         if (result.matchedCount === 0) {
-            return json({ message: 'No document found with the given cKey' }, { status: 404 });
+            return json( {Success: false} , {status : 404});
         }
 
-        return json(
-            { message: 'Data updated successfully', matchedCount: result.matchedCount },
-            { status: 200 }
-        );
+        return json({Success: true}, {status:200});
 
     } catch (error) {
         console.error('Error updating data: ', error);
