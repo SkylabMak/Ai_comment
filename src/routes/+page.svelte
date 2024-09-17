@@ -5,7 +5,6 @@ import {
 
 import BarChart from '../components/BarChart.svelte';
 import CommentExample from '../components/CommentExample.svelte';
-import Homepage from '../components/Homepage.svelte';
 import PieChart from '../components/PieChart.svelte';
 import WordCloud from '../components/WordCloud.svelte';
 import type {
@@ -17,21 +16,39 @@ export let data: PageData;
 alldataStore.set(data.data) //set data to main global store
 </script>
 
-<div>
-    <!-- <Homepage /> -->
-    <svg width="100%" height="400px">
-        <PieChart />
-        <rect x="5%" y="0%" width="20%" height="80%" fill="lime" stroke="black" stroke-width="2" />
+<div class="flex flex-col flex-grow bg-purple-100 p-6">
+    <!-- Main Grid Content -->
+    <div class="grid grid-cols-4 gap-6 flex-grow">
+        <!-- Pie Chart Section -->
+        <div class="col-span-1 bg-white rounded-xl p-4 shadow-md">
+            <!-- Individual editing area -->
+            <h2 class="text-lg font-semibold mb-4">Pie Chart</h2>
+            <PieChart />
+            <!-- Individual editing area -->
+        </div>
 
-        <WordCloud />
-        <rect x="28.1%" y="0%" width="41.75%" height="80%" fill="blue" stroke="black" stroke-width="2" />
+        <!-- Word Cloud Section -->
+        <div class="col-span-2 bg-white rounded-xl p-4 shadow-md">
+            <!-- Individual editing area -->
+            <h2 class="text-lg font-semibold mb-4">Cloud Word</h2>
+            <WordCloud />
+            <!-- Individual editing area -->
+        </div>
 
-        <CommentExample />
-        <rect x="73%" y="0%" width="22%" height="100%" fill="yellow" stroke="black" stroke-width="2" />
-    </svg>
-    
-    <BarChart />
-    <svg width="100%" height="400px">
-        <rect x="5%" y="0%" width="65%" height="100%" fill="red" stroke="black" stroke-width="2" />
-    </svg>
+        <!-- Comment Section (fills col 4 in row 1 and 2) -->
+        <div class="col-span-1 row-span-2 bg-white rounded-xl p-4 shadow-md">
+            <!-- Individual editing area -->
+            <h2 class="text-lg font-semibold mb-4">Comment</h2>
+            <CommentExample />
+            <!-- Individual editing area -->
+        </div>
+
+        <!-- Bar Chart Section -->
+        <div class="col-span-3 bg-white rounded-xl p-4 shadow-md">
+            <!-- Individual editing area -->
+            <h2 class="text-lg font-semibold">Bar Chart</h2>
+            <BarChart />
+            <!-- Individual editing area -->
+        </div>
+    </div>
 </div>

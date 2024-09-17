@@ -1,37 +1,27 @@
-<script	async script lang="ts">
+<script lang="ts">
 import '../app.css';
 import type {
     LayoutData
 } from './$types';
 
 import {
-	alldataComment,
-    alldataStore
+    alldataComment,
 } from '$lib/store/stores';
 
-import { onMount } from 'svelte';
+import {
+    onMount
+} from 'svelte';
 export let data: LayoutData; // get data from layout server
 
-let count = 1
 let layoutData: Alldata | null = null;
 
-alldataStore.subscribe(value => { //subscribe for run this function when "alldataStore" changes.
-    layoutData = value
-    // console.log("data changed in layout " + count + " time")
-})
-
 alldataComment.subscribe(value => { //subscribe for run this function when "alldataStore" changes.
+    console.log("comment data have changed detail in beblow")
     console.log(value)
 })
-alldataStore.set(data.data) //set data to main global store
-
-console.log(data)
-console.log(data.data.products[0])
 
 const cKey = data.data.CKey;
 let emotions = data.data.Emotions;
-
-let responseMessage = '';
 
 // Function to call the API
 async function updateEmotions(i: number) {
@@ -49,20 +39,18 @@ async function updateEmotions(i: number) {
     });
 }
 
-function getallComments(productID : string, alldata : boolean) {
+function getallComments(productID: string, alldata: boolean) {
     let alldataComment1: AlldataComment[] = []
     data.data.products.map(product => {
-        if(alldata){
-            product.Comment.map( comment => alldataComment1.push({
+        if (alldata) {
+            product.Comment.map(comment => alldataComment1.push({
                 Comment_ID: comment.comment_ID,
                 Text: comment.Text,
                 Time: comment.Time,
                 Emotion: comment.Emotion,
             }))
-        }
-
-        else if(product.Product_ID === productID){
-            product.Comment.map( comment => alldataComment1.push({
+        } else if (product.Product_ID === productID) {
+            product.Comment.map(comment => alldataComment1.push({
                 Comment_ID: comment.comment_ID,
                 Text: comment.Text,
                 Time: comment.Time,
@@ -70,7 +58,7 @@ function getallComments(productID : string, alldata : boolean) {
             }))
         }
     })
-    alldataComment.set(alldataComment1)
+    alldataComment.set(alldataComment1)  //set data to main global store
 }
 
 async function rename(id: string, name: string) {
@@ -88,57 +76,37 @@ async function rename(id: string, name: string) {
     });
 }
 
-function changeSomedata() {
-    let dummy: Alldata | null = null
-    if (layoutData) {
-        dummy = {
-            ...layoutData,
-            products: layoutData.products.map(item => {
-                return {
-                    ...item,
-                    Comment: item.Comment.map(com => ({
-                        ...com,
-                        Text: "I hate frontend",
-                        Emotions: "angy"
-                    }))
-                };
-            })
-        };
-    }
-    alldataStore.set(dummy) //set data or change "alldataStore"
-}
-
-// console.log("data in layout page "+alldata)
 onMount(async () => {
-    getallComments("",true)
+    getallComments("", true)
 });
-
 </script>
-<div class="app w-full h-full drop-shadow-2xl flex flex-col items-center justify-center">
-    {#if layoutData}
-    <h1>navbar : {layoutData.CKey}</h1>
-    {/if}
-    <div class="button-container">
-        <button on:click={() => updateEmotions(0)}>Anger</button>
-        <button on:click={() => updateEmotions(1)}>Fear</button>
-        <button on:click={() => updateEmotions(2)}>Joy</button>
-        <button on:click={() => updateEmotions(3)}>Love</button>
-        <button on:click={() => updateEmotions(4)}>Sadness</button>
-        <button on:click={() => updateEmotions(5)}>Surprise</button>
+
+<main class="min-h-screen flex flex-col">
+    <!-- Navbar or Button Section -->
+    <div class="app w-full drop-shadow-2xl flex flex-col items-center justify-center">
+        {#if layoutData}
+        <!-- <h1>navbar : {layoutData.CKey}</h1> -->
+        {/if}
+        <!-- <div class="button-container mb-4 ">
+            <button  on:click={() => updateEmotions(0)}>Anger</button>
+            <button on:click={() => updateEmotions(1)}>Fear</button>
+            <button on:click={() => updateEmotions(2)}>Joy</button>
+            <button on:click={() => updateEmotions(3)}>Love</button>
+            <button on:click={() => updateEmotions(4)}>Sadness</button>
+            <button on:click={() => updateEmotions(5)}>Surprise</button>
+        </div> -->
+
+        <!-- Additional Buttons -->
+
+        <div class="p-2">
+            <button class="bg-white rounded-xl p-4 shadow-md" on:click={() => getallComments("2", false)}>click me for test Data changes</button>
+            <!-- <button on:click={() => rename("2", "Product Nutty")}>Change Name</button> -->
+        </div>
     </div>
 
-    <!-- Call the API when a button is clicked -->
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded drop-shadow-2xl"
-        on:click={
-            changeSomedata
-        }>
-        Change Data
-    </button>
-
-    <button on:click={() => getallComments("2", false)}>All Comments</button>
-    <button on:click={() => rename("2", "Product Nutty")}>Change Name</button>
-</div>
-
-<main >
-    <slot/>
+    <!-- Content Slot (will fill the rest of the screen) -->
+    <div class="flex flex-col flex-grow">
+        <slot />
+    </div>
 </main>
+
