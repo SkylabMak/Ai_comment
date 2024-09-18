@@ -41,24 +41,27 @@ async function updateEmotions(i: number) {
 
 function getallComments(productID: string, alldata: boolean) {
     let alldataComment1: AlldataComment[] = []
-    data.data.products.map(product => {
-        if (alldata) {
-            product.Comment.map(comment => alldataComment1.push({
-                Comment_ID: comment.comment_ID,
-                Text: comment.Text,
-                Time: comment.Time,
-                Emotion: comment.Emotion,
-            }))
-        } else if (product.Product_ID === productID) {
-            product.Comment.map(comment => alldataComment1.push({
-                Comment_ID: comment.comment_ID,
-                Text: comment.Text,
-                Time: comment.Time,
-                Emotion: comment.Emotion,
-            }))
-        }
-    })
-    alldataComment.set(alldataComment1)  //set data to main global store
+    console.log(data.data)
+
+        data.data.products.map(product => {
+            if (alldata) {
+                product.Comment.map(comment => alldataComment1.push({
+                    Comment_ID: comment.comment_ID,
+                    Text: comment.Text,
+                    Time: comment.Time,
+                    Emotion: comment.Emotion,
+                }))
+            } else if (product.Product_ID === productID) {
+                product.Comment.map(comment => alldataComment1.push({
+                    Comment_ID: comment.comment_ID,
+                    Text: comment.Text,
+                    Time: comment.Time,
+                    Emotion: comment.Emotion,
+                }))
+            }
+        })
+    
+    alldataComment.set(alldataComment1) //set data to main global store
 }
 
 async function rename(id: string, name: string) {
@@ -79,8 +82,15 @@ async function rename(id: string, name: string) {
 onMount(async () => {
     getallComments("", true)
 });
+// import * as d3 from 'd3';
+
+// d3.select('body').append('p').text('Hello, D3 with TypeScript!');
+
 </script>
 
+<head>
+    <link rel="icon" href="data:," />
+</head>
 <main class="min-h-screen flex flex-col">
     <!-- Navbar or Button Section -->
     <div class="app w-full drop-shadow-2xl flex flex-col items-center justify-center">
@@ -109,4 +119,3 @@ onMount(async () => {
         <slot />
     </div>
 </main>
-
