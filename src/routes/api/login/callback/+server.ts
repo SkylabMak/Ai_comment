@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
       return new Response(null, {
         status: 302,
         headers: {
-          'Set-Cookie': `CKey=${doc.CKey}; HttpOnly; Path=/; Max-Age=${1 * 60 * 60};`,
+          'Set-Cookie': `CKey=${doc.CKey}; HttpOnly; Path=/; Max-Age=${24 * 60 * 60};`,
           Location: '/'
         }
       });

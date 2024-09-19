@@ -91,7 +91,7 @@ onMount(async () => {
 <head>
     <link rel="icon" href="data:," />
 </head>
-<main class="min-h-screen flex flex-col">
+<main class="max-h-screen flex flex-col bg-purple-100">
     <!-- Navbar or Button Section -->
     <div class="app w-full drop-shadow-2xl flex flex-col items-center justify-center">
         {#if layoutData}

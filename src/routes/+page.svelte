@@ -55,7 +55,7 @@ alldataStore.set(data.data) //set data to main global store
                 </select>
                 <!-- Emotion selection area -->
             </div>
-            <div class="bg-white rounded-xl p-4 shadow-md flex-grow">
+            <div class="bg-white rounded-xl p-4 shadow-md flex flex-grow">
                 <!-- Individual editing area -->
                 <CommentExample {selectedEmotion} />
                 <!-- Individual editing area -->

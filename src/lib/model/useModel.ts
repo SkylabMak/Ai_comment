@@ -1,40 +1,26 @@
-// // @ts-ignore
-// import * as ort from 'onnxruntime';
-// import * as fs from 'fs';
+export async function getModelPrediction(text: string): Promise<string> {
+  try {
+    const url1 = "http://127.0.0.1:5000/predict"
+    const response = await fetch(url1, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: text,
+        model:1
+       }),
+    });
 
-// // Load label mappings
-// const label2id = JSON.parse(fs.readFileSync('resource/label2id.joblib', 'utf-8'));
-// const id2label = JSON.parse(fs.readFileSync('resource/id2label.joblib', 'utf-8'));
+    if (!response.ok) {
+      throw new Error(`Model Error: ${response.statusText}`);
+    }
 
-// // Function to load the ONNX model and predict
-// export async function predict(text: string) {
-//     // Load ONNX model
-//     const session = await ort.InferenceSession.create('resource/bert_text_classification_model.onnx');
+    const data = await response.json();
 
-//     // Tokenize input text (you need to apply the same tokenization as during training)
-//     const tokenizer = JSON.parse(fs.readFileSync('./tokenizer/tokenizer_config.json', 'utf-8'));
-
-//     const tokens = tokenizer.encode(text);
-    
-//     // Prepare the inputs
-//     const inputIds = new ort.Tensor('int64', new Int32Array(tokens.input_ids), [1, tokens.input_ids.length]);
-//     const attentionMask = new ort.Tensor('int64', new Int32Array(tokens.attention_mask), [1, tokens.attention_mask.length]);
-
-//     // Run the model
-//     const results = await session.run({ input_ids: inputIds, attention_mask: attentionMask });
-
-//     // Extract the output and decode the prediction
-//     const output = results.output.data;
-//     const predictedLabelId = output.indexOf(Math.max(...output));
-//     const predictedLabel = id2label[predictedLabelId];
-
-//     console.log(`Prediction: ${predictedLabel}`);
-// }
-
-// // Example usage:
-// const inputText = "im so sad";
-// predict(inputText).then(() => {
-//     console.log("Prediction done");
-// }).catch(err => {
-//     console.error("Error predicting: ", err);
-// });
+    // Assuming the Flask API returns the prediction in `data.prediction`
+    return data.prediction;
+  } catch (error) {
+    console.error('Error getting prediction from API:', error);
+    throw error;
+  }
+}
