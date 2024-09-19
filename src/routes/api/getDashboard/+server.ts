@@ -3,9 +3,9 @@ import { db } from "$lib/utils/mongo";
 
 export const POST: RequestHandler = async ({ request }) => {
     const body = await request.json();
-    console.log(body.CKey + " : from post method in backend api")
+    // console.log(body.CKey + " : from post method in getdashboard backend api")
     const companyCollection = db.collection('company');
-    const results = await companyCollection.aggregate([
+    let results = await companyCollection.aggregate([
         {
             $match: {
                 CKey: body.CKey
@@ -30,7 +30,9 @@ export const POST: RequestHandler = async ({ request }) => {
             }
         } 
     ]).toArray(); 
-
+    if (results.length === 0){
+        results = [{}]
+    }
     return new Response(JSON.stringify(results[0]),{
         status: 200,
         headers: {

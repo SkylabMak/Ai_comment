@@ -34,7 +34,7 @@ export let data: {
         <div class="bg-gray-100 rounded-lg p-4 shadow-md m-5">
             <div class="flex justify-between items-center">
                 <div>
-                    <p class="text-lg font-semibold">{db.CName}</p>
+                    <p class="text-lg font-semibold">{db.CKey}</p>
                     <p class="text-gray-600">{db.CKey}</p>
                     <p class="text-gray-600">have {db.products.length} comment</p>
                 </div>

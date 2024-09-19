@@ -33,4 +33,16 @@ export async function testConnection() {
         await client.close();
     }
 }
+
+export async function checkExistence(collection: string, key: string, value: string): Promise<CompanyConnection | null> {
+    try {
+        const dbCollection = db.collection(collection);
+        const document = await dbCollection.findOne({ [key]: value }) ;
+        return document as unknown as CompanyConnection
+    } catch (error) {
+        console.error("Error in checkExistence:", error);
+        throw error;
+    }
+}
+
 // run().catch(console.dir);

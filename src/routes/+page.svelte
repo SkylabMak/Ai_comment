@@ -1,62 +1,54 @@
-<script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+<script lang="ts">
+import {
+    alldataStore
+} from '$lib/store/stores';
+
+import BarChart from '../components/BarChart.svelte';
+import CommentExample from '../components/CommentExample.svelte';
+import PieChart from '../components/PieChart.svelte';
+import WordCloud from '../components/WordCloud.svelte';
+import type {
+    PageData
+} from './$types';
+
+export let data: PageData;
+
+alldataStore.set(data.data) //set data to main global store
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
+<div class="flex flex-col flex-grow bg-purple-100 p-6">
+    <!-- Main Grid Content -->
+    <div class="grid grid-cols-4 gap-6 flex-grow">
+        <!-- Pie Chart Section -->
+        <div class="col-span-1 bg-white rounded-xl p-4 shadow-md">
+            <!-- Individual editing area -->
+            <h2 class="text-lg font-semibold mb-4">Pie Chart</h2>
+            <PieChart />
+            <!-- Individual editing area -->
+        </div>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+        <!-- Word Cloud Section -->
+        <div class="col-span-2 bg-white rounded-xl p-4 shadow-md">
+            <!-- Individual editing area -->
+            <h2 class="text-lg font-semibold mb-4">Cloud Word</h2>
+            <WordCloud />
+            <!-- Individual editing area -->
+        </div>
 
-		to your new<br />SvelteKit app
-	</h1>
+        <!-- Comment Section (fills col 4 in row 1 and 2) -->
+        <div class="col-span-1 row-span-2 bg-white rounded-xl p-4 shadow-md">
+            <!-- Individual editing area -->
+            <h2 class="text-lg font-semibold mb-4">Comment</h2>
+            <CommentExample />
+            <!-- Individual editing area -->
+        </div>
 
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-	<h1 class="text-3xl font-bold underline">
-		Hello world!
-	  </h1>
-</section>
-
-<style lang="postcss">
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+        <!-- Bar Chart Section -->
+        <div class="col-span-3 bg-white rounded-xl p-4 shadow-md">
+            <!-- Individual editing area -->
+            <h2 class="text-lg font-semibold">Bar Chart</h2>
+            <BarChart />
+            <!-- Individual editing area -->
+        </div>
+    </div>
+</div>
