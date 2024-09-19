@@ -1,6 +1,6 @@
 import { number } from "zod";
 
-export function getEmotion(comment: String): String {
+export function getEmotion(comment: string): string {
     switch (Math.floor(Math.random() * 6)) {
         case 0:
             return "sadness";
