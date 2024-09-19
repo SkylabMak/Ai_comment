@@ -1,35 +1,24 @@
-import type { RequestHandler } from "@sveltejs/kit";
-import { users } from './data';
-import { db } from "$lib/utils/mongo";
+// import type { RequestHandler } from "@sveltejs/kit";
+// import { users } from './data';
+// import { db } from "$lib/utils/mongo";
+// import { predict } from "$lib/model/useModel";
 
-export const GET: RequestHandler = async () => {
-  return new Response(JSON.stringify(users), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-};
+// export const GET: RequestHandler = async () => {
+//   const results = predict("imsosad")
+//   return new Response(JSON.stringify(results), {
+//     status: 200,
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   });
+// };
 
-export const POST: RequestHandler = async ({ request }) => {
-  const body = await request.json();
-  console.log(body.someKey + " : from post method in backend api")
-  const companyCollection = db.collection('company');
-  //join
-  const results = await companyCollection.aggregate([
-    {
-      $lookup: {
-        from: "product",           // The target collection (product)
-        localField: "CKey",        // Field from the company collection
-        foreignField: "CKey",      // Field from the product collection
-        as: "products"             // Output array field name in the result
-      }
-    }
-  ]).toArray();
-  return new Response(JSON.stringify(results), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
-};
+// export const POST: RequestHandler = async ({ request }) => {
+//   const results = predict("imsosad")
+//   return new Response(JSON.stringify(results), {
+//     status: 200,
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   });
+// };
