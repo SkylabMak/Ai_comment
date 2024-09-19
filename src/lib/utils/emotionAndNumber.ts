@@ -1,6 +1,6 @@
 import { number } from "zod";
 
-export function toNumber(emotion: String): number {
+export function emotionToNumber(emotion: String): number {
     switch (emotion) {
         case "anger":
             return 0;
@@ -19,7 +19,7 @@ export function toNumber(emotion: String): number {
     }
 }
 
-export function toEmotion(num: number): String {
+export function numberToEmotion(num: number): String {
     switch (num) {
         case 0:
             return "anger";

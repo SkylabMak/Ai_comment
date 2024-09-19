@@ -3,7 +3,7 @@ import { db } from "$lib/utils/mongo";
 import { ObjectId, Timestamp } from "mongodb";
 import { getEmotion } from "$lib/utils/getEmotion";
 import { GOOGLE_ID } from "$env/static/private";
-import { toNumber } from "$lib/utils/emotionNumber";
+import { emotionToNumber } from "$lib/utils/emotionAndNumber";
 import { sendEMail } from "$lib/utils/mailService";
 import { Console, log } from "console";
 
@@ -31,7 +31,7 @@ export const POST: RequestHandler = async ({ request }) => {
         if (companyData.length === 0) {
             return json({ message: "Business_ID not found" }, { status: 400 });
         }
-        if (companyData[0].Emotions[toNumber(emotion)]) {
+        if (companyData[0].Emotions[emotionToNumber(emotion)]) {
             sendEMail(companyData[0].Email, body.comment, emotion, body.Product_ID, body.Name_product);
         }
         console.log(body);
