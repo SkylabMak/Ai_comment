@@ -1,32 +1,31 @@
 import type { RequestHandler } from "@sveltejs/kit";
 import { users } from './data';
 import { db } from "$lib/utils/mongo";
+import { getModelPrediction } from "$lib/model/useModel";
 
 export const GET: RequestHandler = async () => {
-  return new Response(JSON.stringify(users), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
+  try {
+    console.log("test api run")
+    const results = await getModelPrediction("i cant feel too sympathetic for the humans that get killed by yoma as its merely a part of nature here")
+    return new Response(JSON.stringify(results), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  } catch (error) {
+    console.log("api test error ")
+    return new Response(null,
+      {
+      status: 500,
+      }
+    )
+  }
+ 
 };
 
 export const POST: RequestHandler = async ({ request }) => {
-  const body = await request.json();
-  console.log(body.someKey + " : from post method in backend api")
-  const companyCollection = db.collection('company');
-  //join
-  const results = await companyCollection.aggregate([
-    {
-      $lookup: {
-        from: "product",           // The target collection (product)
-        localField: "CKey",        // Field from the company collection
-        foreignField: "CKey",      // Field from the product collection
-        as: "products"             // Output array field name in the result
-      }
-    }
-  ]).toArray();
-  return new Response(JSON.stringify(results), {
+  return new Response(JSON.stringify(""), {
     status: 200,
     headers: {
       'Content-Type': 'application/json'

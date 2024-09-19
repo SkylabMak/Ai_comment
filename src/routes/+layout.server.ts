@@ -1,6 +1,5 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-import { alldataStore } from '$lib/store/stores';
 export const load: LayoutServerLoad = async ({ fetch,cookies ,url}) => {
     //get cookie
     const CKeyCookie = cookies.get('CKey');
@@ -25,7 +24,7 @@ export const load: LayoutServerLoad = async ({ fetch,cookies ,url}) => {
             CKey: CKeyCookie
         })
     });
-    const data = (await response.json()) as Alldata
+    const data = await response.json() as Alldata
     // console.log("-------------------- setting data ----------------------" )
     // console.log(data)
     data.CKey = CKeyCookie as string
