@@ -1,39 +1,13 @@
-import { number } from "zod";
+// Reverse mapping using array
+const emotions = ["anger", "fear", "joy", "sadness", "love", "surprise", "Mek"];
 
-export function emotionToNumber(emotion: String): number {
-    switch (emotion) {
-        case "anger":
-            return 0;
-        case "fear":
-            return 1;
-        case "joy":
-            return 2;
-        case "sadness":
-            return 3;
-        case "love":
-            return 4;
-        case "surprise":
-            return 5;
-        default:
-            return 6;
-    }
+// Convert emotion string to number
+export function emotionToNumber(emotion: string): number {
+    const emotionIndex = emotions.indexOf(emotion.toLowerCase());
+    return emotionIndex !== -1 ? emotionIndex : 6; // 6 is for "Mek"
 }
 
-export function numberToEmotion(num: number): String {
-    switch (num) {
-        case 0:
-            return "anger";
-        case 1:
-            return "fear";
-        case 2:
-            return "joy";
-        case 3:
-            return "sadness";
-        case 4:
-            return "love";
-        case 5:
-            return "surprise";
-        default:
-            return "Mek";
-    }
+// Convert number to emotion string
+export function numberToEmotion(num: number): string {
+    return emotions[num] || "Mek";  // Default to "Mek" if out of bounds
 }

@@ -2,11 +2,12 @@ import type { RequestHandler } from "@sveltejs/kit";
 import { users } from './data';
 import { db } from "$lib/utils/mongo";
 import { getModelPrediction } from "$lib/model/useModel";
+import { predict } from "$lib/model/predict";
 
 export const GET: RequestHandler = async () => {
   try {
     console.log("test api run")
-    const results = await getModelPrediction("i cant feel too sympathetic for the humans that get killed by yoma as its merely a part of nature here")
+    const results = await predict("i don t feel insecure")
     return new Response(JSON.stringify(results), {
       status: 200,
       headers: {
@@ -32,3 +33,4 @@ export const POST: RequestHandler = async ({ request }) => {
     }
   });
 };
+
