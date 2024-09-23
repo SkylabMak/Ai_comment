@@ -71,7 +71,7 @@
 		>
 			<g class="data">
 				{#each arcs as slice}
-					<path d={arcPath(slice)} fill={emotionColors[slice.data.name]} stroke="white" stroke-width="2" />
+					<path d={arcPath(slice)} fill={emotionColors[slice.data.name]} stroke="white" stroke-width="5" />
 				{/each}
 			</g>
 			<circle cx="0" cy="0" r={innerCircleRadius} fill="white" />
