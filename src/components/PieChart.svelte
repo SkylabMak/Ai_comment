@@ -102,7 +102,8 @@
 		{#each Object.keys(emotionColors) as emotion}
 			<div class="legend-item" style="margin-bottom: 10px;">
 				<div class="color-square" style="background-color: {emotionColors[emotion]};"></div>
-				<span>{emotion}: {data.find((d) => d.name === emotion)?.value.toFixed(1) || '0.0'}%</span>
+				<span>{emotion}</span>
+				<span class="value">{data.find((d) => d.name === emotion)?.value.toFixed(1) || '0.0'}%</span>
 			</div>
 		{/each}
 	</div>
@@ -122,10 +123,18 @@
 		display: flex;
 		align-items: center;
 		margin-right: 15px;
+		width: 100%; /* Adjusts width to make space for value */
 	}
 	.color-square {
 		width: 20px;
 		height: 20px;
 		margin-right: 5px;
 	}
+	.value {
+		flex-grow: 1; /* Allows value to take remaining space */
+		text-align: right; /* Aligns text to the right */
+		margin-left: 240px; /* Adds space between emotion and % */
+	}
 </style>
+
+
