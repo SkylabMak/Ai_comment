@@ -41,17 +41,17 @@ alldataStore.set(data.data) //set data to main global store
         <div class="col-span-1 row-span-2 flex flex-col">
             <!-- Title outside the white box -->
             <h2 class="text-lg font-semibold mb-4">Comment</h2>
-            <div class="bg-white rounded-xl p-4 shadow-md mb-4">
+            <!-- <div class="bg-white rounded-xl p-4 shadow-md mb-4"> -->
                 <!-- Emotion selection area -->
-                <h3 class="text-md font-semibold mb-2">Select Emotion</h3>
-                <select class="w-full p-2 border rounded" bind:value={selectedEmotion}>
-                    <option value="">All Emotions</option>
-                    <option value="anger">Anger</option>
-                    <option value="fear">Fear</option>
-                    <option value="joy">Joy</option>
-                    <option value="love">Love</option>
-                    <option value="sadness">Sadness</option>
-                    <option value="surprise">Surprise</option>
+                <!-- <h3 class="text-md font-semibold mb-2">Select Emotion</h3> -->
+                <select class="w-full p-3 border border-gray-300 rounded-full focus:border-gray-500 focus:outline-none bg-gray-50 mb-4" bind:value={selectedEmotion}>
+                    <option class="py-2" value="">All Emotions</option>
+                    <option class="py-2" value="anger">Anger</option>
+                    <option class="py-2" value="fear">Fear</option>
+                    <option class="py-2" value="joy">Joy</option>
+                    <option class="py-2" value="love">Love</option>
+                    <option class="py-2" value="sadness">Sadness</option>
+                    <option class="py-2" value="surprise">Surprise</option>
                 </select>
                 <!-- Emotion selection area -->
             </div>
