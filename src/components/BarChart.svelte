@@ -57,6 +57,9 @@
                 const yearMonth = date.getMonth(); // 0-based month index
                 timeLabel = getMonthName(yearMonth); // Convert month index to name
                 break;
+            case 'all':
+                timeLabel = date.toDateString(); // Use the full date as the label
+                break;
         }
 
         if (timeLabel) {
@@ -101,9 +104,17 @@
                 ];
                 labels = monthNames;
                 break;
+             case 'all':
+                labels = timeLabels; // For 'all', just use the generated time labels
+                break;
         }
         return labels;
     };
+
+    // Sort the timeLabels array if the filter is 'all'
+    if (filter === 'all') {
+            timeLabels.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+    }
 
     const allLabels = generateLabels();
 
@@ -185,6 +196,7 @@ function handleFilterChange(e: Event) {
         <option value="today">Today</option>
         <option value="month">This Month</option>
         <option value="year">This Year</option>
+        <option value="all">All</option>
     </select>
 
     {#if isDataLoaded && chartData}
