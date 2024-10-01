@@ -54,7 +54,7 @@ alldataStore.set(data.data) //set data to main global store
                     <option class="py-2" value="surprise">Surprise</option>
                 </select>
                 <!-- Emotion selection area -->
-            </div>
+
             <div class="bg-white rounded-xl p-4 shadow-md flex flex-grow">
                 <!-- Individual editing area -->
                 <CommentExample {selectedEmotion} />
@@ -71,3 +71,4 @@ alldataStore.set(data.data) //set data to main global store
             <!-- Individual editing area -->
         </div>
     </div>
+</div>

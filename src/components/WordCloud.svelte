@@ -39,7 +39,7 @@
         if (allComment && allComment.length > 0) {
             updateFilteredEmotions();
         } else {
-            console.error("No comments available or invalid data.");
+            console.log("No comments available or invalid data.");
         }
     });
 
@@ -121,6 +121,9 @@
         const centerX = svgWidth / 2;
         const centerY = svgHeight / 2;
 
+        // Clear any existing content inside the SVG before drawing the new word cloud
+        d3.select(svg).selectAll("*").remove();
+        
         d3.select(svg)
             .append("g")
             .attr("transform", `translate(${centerX}, ${centerY})`)
@@ -141,4 +144,4 @@
 
 </script>
 
-<svg bind:this={svg} width="700" height="400"></svg>
+<svg bind:this={svg} class={`w-full h-full`}></svg>

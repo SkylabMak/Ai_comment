@@ -71,7 +71,7 @@
     }
 </script>
 
-<div style="height: calc(24rem + 68px);" class="p-4 overflow-y-scroll">
+<div class={`p-4 overflow-y-scroll 2xl:h-[600px] lg:h-[400px]`}>
     {#if filteredComments && filteredComments.length > 0}
         {#each filteredComments as comment}
             <div class="mb-6 pb-4 border-b border-gray-300">

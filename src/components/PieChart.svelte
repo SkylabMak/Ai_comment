@@ -92,7 +92,3 @@
 		{/each}
 	</div>
 </div>
-
-<style>
-	/* Add any additional custom styles here */
-</style>
