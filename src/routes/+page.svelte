@@ -71,4 +71,3 @@ alldataStore.set(data.data) //set data to main global store
             <!-- Individual editing area -->
         </div>
     </div>
-</div>
