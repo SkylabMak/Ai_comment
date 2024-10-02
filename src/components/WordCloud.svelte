@@ -4,6 +4,7 @@
     import nlp from 'compromise';
     import * as d3 from 'd3';
     import cloud from 'd3-cloud';
+	import { emotionColors } from '$lib/utils/emotionColors';
 
     interface AlldataComment { 
         Comment_ID: string;
@@ -19,14 +20,14 @@
         color: string; 
     }
 
-    const emotionColors: { [key: string]: string } = {
-        love: '#FAB3BC',
-        joy: '#FFE45F',
-        sadness: '#89ABFF',
-        surprise: '#F99600',
-        anger: '#F12B43',
-        fear: '#A75EF1',
-    };
+    // const emotionColors: { [key: string]: string } = {
+    //     love: '#FAB3BC',
+    //     joy: '#FFE45F',
+    //     sadness: '#89ABFF',
+    //     surprise: '#F99600',
+    //     anger: '#F12B43',
+    //     fear: '#A75EF1',
+    // };
 
     let allComment: AlldataComment[] | null = null;
     let filteredEmotions: { [key: string]: FilteredEmotion[] } = {};
@@ -92,7 +93,11 @@
     drawWordCloud(); //word cloud using d3 - d3-cloud
 }
 
-    function drawWordCloud() {
+function drawWordCloud() {
+    // Get the size of the parent container dynamically
+    const containerWidth = svg.parentElement?.getBoundingClientRect().width || 600;
+    const containerHeight = svg.parentElement?.getBoundingClientRect().height || 400;
+
     const words: { text: string; size: number; color: string }[] = [];
 
     for (const emotion in filteredEmotions) {
@@ -101,47 +106,93 @@
         });
     }
 
+    // Set a minimum size for words if the data is too small
+    const minFontSize = 20;
+    const maxFontSize = Math.min(containerWidth, containerHeight) / 8; // Adjust max size based on container
+
     const layout = cloud()
-        .size([600, 400])
+        .size([containerWidth - 50, containerHeight - 50]) // ลดขนาดเล็กน้อยเพื่อเว้นระยะห่างจากขอบ
         .words(words.map(word => ({
             text: word.text,
-            size: Math.log(word.size + 1) * 20, // size 
-            color: word.color // color from filteredEmotions
+            size: Math.max(Math.log(word.size + 1) * 20, minFontSize), // Ensure a minimum size
+            color: word.color
         })))
-        .padding(5)
-        .rotate(() => (Math.random() < 0.5 ? 0 : 90))
-        .fontSize(d => d.size || 10)
+        .padding(6) // เพิ่ม padding ระหว่างคำเพื่อให้ไม่ทับกัน
+        .rotate(() => (Math.random() < 0.5 ? 0 : 90)) // สุ่มหมุนแนวนอน (0) หรือแนวตั้ง (90)
+        .fontSize(d => Math.min(d.size || minFontSize, maxFontSize)) // Limit max font size
         .on("end", draw);
 
     layout.start();
 
     function draw(words: any[]) {
-        const svgWidth = 700;
-        const svgHeight = 400;
-        const centerX = svgWidth / 2;
-        const centerY = svgHeight / 2;
+        const centerX = (containerWidth - 50) / 2; // เว้นระยะจากขอบ
+        const centerY = (containerHeight - 50) / 2;
 
         // Clear any existing content inside the SVG before drawing the new word cloud
         d3.select(svg).selectAll("*").remove();
         
         d3.select(svg)
+            .attr("width", containerWidth)
+            .attr("height", containerHeight)
             .append("g")
             .attr("transform", `translate(${centerX}, ${centerY})`)
             .selectAll("text")
             .data(words)
             .enter().append("text")
             .style("font-size", d => d.size + "px")
-            .style("fill", d => d.color) // color from filteredEmotions
-            .style("font-family", "Rockwell Nova Cond") //font any want to change
+            .style("fill", d => d.color) // ใช้สีตาม emotionColors
+            .style("font-family", "Arial, sans-serif") // เปลี่ยนฟอนต์ให้เหมือนกับตัวอย่าง
             .attr("text-anchor", "middle")
-            .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
+            .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`) // หมุนตามที่กำหนด
             .text(d => d.text);
     }
 }
-    onMount(() => {
-        drawWordCloud();
-    });
+
+
+
+onMount(() => {
+    drawWordCloud();
+
+    // Redraw Word Cloud when the window resizes to maintain responsiveness
+    window.addEventListener('resize', drawWordCloud);
+});
+
+
 
 </script>
 
-<svg bind:this={svg} class={`w-full h-full`}></svg>
+<!-- <svg bind:this={svg} class={`w-full h-full`}></svg> -->
+<!-- <div class="word-cloud-container p-4">
+    <svg bind:this={svg} class="w-full h-full"></svg>
+</div> -->
+
+<div class="justify-center flex flex-row items-center mt-5 w-full flex-wrap">
+    {#each Object.keys(emotionColors) as emotion}
+        <div class="flex items-center justify-between w-auto mb-2 mr-4">
+            <div class="flex items-center">
+                <div class="w-5 h-5 mr-2" style="background-color: {emotionColors[emotion]}"></div>
+                <span>{emotion}</span>
+            </div>
+            <!-- <span>
+                {data.find((d) => d.name === emotion)?.value.toFixed(1) || '0.0'}%
+            </span> -->
+        </div>
+    {/each}
+</div>
+
+<div class="word-cloud-container p-4">
+    <svg bind:this={svg} class="w-full h-full"></svg>
+</div>
+
+<style>
+    .word-cloud-container {
+        width: 100%; /* ปรับขนาดตามพื้นที่ที่ต้องการ */
+        height: 400px; /* กำหนดความสูงตามต้องการ */
+        padding-left: 20px; /* ระยะขอบด้านซ้าย */
+        padding-right: 20px; /* ระยะขอบด้านขวา */
+        padding-bottom: 20px; /* ระยะขอบด้านล่าง */
+        margin: auto;
+    }
+</style>
+
+

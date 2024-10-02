@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { alldataComment } from '$lib/store/stores';
+	import { emotionColors } from '$lib/utils/emotionColors';
 	import * as d3 from 'd3';
 
 	let allComment: AlldataComment[] | null = null;
@@ -16,17 +17,7 @@
 	let arcs: d3.PieArcDatum<PieChartData>[] = [];
 
 	const width = 400;
-	const height = 200;
-
-	// Define a color mapping for each emotion
-	const emotionColors: { [key: string]: string } = {
-		love: '#FAB3BC',
-		sadness: '#89ABFF',
-		anger: '#F12B43',
-		surprise: '#F99600',
-		joy: '#FFE45F',
-		fear: '#A75EF1'
-	};
+	const height = 260;
 
 	// Define the pie function
 	const pie = d3
@@ -67,7 +58,7 @@
 			{width}
 			{height}
 			viewBox={`-${width / 2} -${height / 2} ${width} ${height}`}
-			class="max-w-full h-auto"
+			class="max-w-full h-full"
 		>
 			<g class="data">
 				{#each arcs as slice}
