@@ -70,8 +70,8 @@
         }
     }
 </script>
-
-<div class={`p-4 overflow-y-scroll 2xl:h-[600px] lg:h-[400px]`}>
+<div class="p-4 overflow-y-auto max-h-[90vh] w-full">
+<!-- <div class={`p-4 overflow-y-scroll 2xl:h-[600px] lg:h-[400px]`}> -->
     {#if filteredComments && filteredComments.length > 0}
         {#each filteredComments as comment}
             <div class="mb-6 pb-4 border-b border-gray-300">
@@ -89,3 +89,5 @@
         <p class="text-gray-500">No data available</p>
     {/if}
 </div>
+
+
