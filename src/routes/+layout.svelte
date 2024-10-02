@@ -11,6 +11,7 @@ import {
 import {
     onMount
 } from 'svelte';
+	import { goto } from '$app/navigation';
 export let data: LayoutData; // get data from layout server
 
 let layoutData: Alldata | null = null;
@@ -86,6 +87,17 @@ onMount(async () => {
 
 // d3.select('body').append('p').text('Hello, D3 with TypeScript!');
 
+async function deleteFnt() {
+    const response = await fetch('/api/login/logout'); // Replace with the actual endpoint URL
+    if (response.ok) {
+        // Refresh the page if the request was successful
+        window.location.reload();
+    } else {
+        // Handle the error if needed
+        console.error('Logout failed:', response.statusText);
+    }
+
+}
 </script>
 
 <head>
