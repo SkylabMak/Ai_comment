@@ -16,7 +16,7 @@ const ProductSchema = z.object({
   CKey: z.string().min(1, 'CKey is required'),
   Product_ID: z.string().min(1, 'Product_ID is required'),
   Name_product: z.string().min(1, 'Name_product is required'),
-  Comment: z.array(CommentSchema).nonempty('At least one comment is required')
+  Comment: z.array(CommentSchema).optional()
 });
 
 // Function for error handling

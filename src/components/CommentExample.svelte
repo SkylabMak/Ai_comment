@@ -71,7 +71,8 @@
     }
 </script>
 
-<div class={`p-4 overflow-y-scroll 2xl:h-[600px] lg:h-[400px]`}>
+<!-- <div class={`p-4 overflow-y-scroll 2xl:h-[600px] lg:h-[400px]`}> -->
+<div class={`p-4 ${filteredComments && filteredComments.length > 0 ? 'overflow-y-scroll' : 'flex items-center justify-center'} 2xl:h-[600px] lg:h-[400px]`}>
     {#if filteredComments && filteredComments.length > 0}
         {#each filteredComments as comment}
             <div class="mb-6 pb-4 border-b border-gray-300">
