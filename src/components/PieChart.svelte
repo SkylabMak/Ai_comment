@@ -30,45 +30,63 @@
 		.innerRadius(0)
 		.outerRadius(Math.min(width, height) / 2 - 1);
 
-	const innerCircleRadius = Math.min(width, height) / 2 * 0.7; // 70% of the pie chart
+	const innerCircleRadius = (Math.min(width, height) / 2) * 0.7; // 70% of the pie chart
 
 	// Subscribe to data and calculate the chart data
 	$: if (allComment) {
-		const emotionCount = d3.rollup(
-			allComment,
-			(v) => v.length,
-			(d) => d.Emotion
-		);
+		if (allComment.length === 0) {
+			// If there are no comments, clear the data and arcs
+			data = [];
+			arcs = [];
+		} else {
+			// Process emotion data when allComment has entries
+			const emotionCount = d3.rollup(
+				allComment,
+				(v) => v.length,
+				(d) => d.Emotion
+			);
 
-		const totalCount = d3.sum(Array.from(emotionCount.values()));
-		data = Array.from(emotionCount, ([name, value]) => ({
-			name,
-			value: (value / totalCount) * 100 // Calculate percentage
-		}));
+			const totalCount = d3.sum(Array.from(emotionCount.values()));
+			data = Array.from(emotionCount, ([name, value]) => ({
+				name,
+				value: (value / totalCount) * 100 // Calculate percentage
+			}));
 
-		if (data.length) {
-			arcs = pie(data);
+			if (data.length) {
+				arcs = pie(data);
+			}
 		}
 	}
 </script>
 
 <div class="flex flex-col items-center">
-	<div class="flex justify-center items-center">
-		<svg
-			{width}
-			{height}
-			viewBox={`-${width / 2} -${height / 2} ${width} ${height}`}
-			class="max-w-full h-full"
-		>
-			<g class="data">
-				{#each arcs as slice}
-					<path d={arcPath(slice)} fill={emotionColors[slice.data.name]} stroke="white" stroke-width="5" />
-				{/each}
-			</g>
-			<circle cx="0" cy="0" r={innerCircleRadius} fill="white" />
-		</svg>
-	</div>
+	<!-- Pie Chart -->
+	{#if data.length > 0}
+		<div class="flex justify-center items-center">
+			<svg
+				{width}
+				{height}
+				viewBox={`-${width / 2} -${height / 2} ${width} ${height}`}
+				class="max-w-full h-full"
+			>
+				<g class="data">
+					{#each arcs as slice}
+						<path
+							d={arcPath(slice)}
+							fill={emotionColors[slice.data.name]}
+							stroke="white"
+							stroke-width="5"
+						/>
+					{/each}
+				</g>
+				<circle cx="0" cy="0" r={innerCircleRadius} fill="white" />
+			</svg>
+		</div>
+	{:else}
+		<p>No data available</p>
+	{/if}
 
+	<!-- Legend -->
 	<div class="flex flex-col items-center mt-5 w-full">
 		{#each Object.keys(emotionColors) as emotion}
 			<div class="flex items-center justify-between w-full mb-2">
