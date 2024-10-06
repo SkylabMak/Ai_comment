@@ -26,7 +26,8 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 				Email: info.Email,
 				CName: info.name,
 				CKey: genCKey,
-				Emotions: [true, true, false, false, true, false]
+				Emotions: [true, false, false, true, true, false]
+				//sadness (0), joy (1), love (2), anger (3), fear (4), and surprise (5)
 			};
 			await dbCollection.insertOne(data);
 			return new Response(null, {

@@ -17,7 +17,7 @@
 		});
 	}
 
-	let e = ['Anger', 'Fear', 'Joy', 'Love', 'Sadness', 'Surprise'];
+	let e = ['sadness','joy','love','anger', 'fear','surprise'];
 
 	function handleClickOutside(event: MouseEvent) {
 		const target = event.target as HTMLElement | null;

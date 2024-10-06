@@ -1,5 +1,5 @@
 // Reverse mapping using array
-const emotions = ['anger', 'fear', 'joy', 'sadness', 'love', 'surprise', 'Mek'];
+const emotions = ['sadness','joy','love','anger', 'fear','surprise', 'NoEmotion'];
 
 // Convert emotion string to number
 export function emotionToNumber(emotion: string): number {
@@ -9,5 +9,5 @@ export function emotionToNumber(emotion: string): number {
 
 // Convert number to emotion string
 export function numberToEmotion(num: number): string {
-	return emotions[num] || 'Mek'; // Default to "Mek" if out of bounds
+	return emotions[num] || 'NoEmotion'; // Default to "Mek" if out of bounds
 }
